@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+
 import './App.css';
 
-function App() {
+
+function App(): ReactElement {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
+        <img alt="logo"
+          className="App-logo"
+          src={logo} />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
@@ -17,8 +19,8 @@ function App() {
           <a
             className="App-link"
             href="https://reactjs.org/"
-            target="_blank"
             rel="noopener noreferrer"
+            target="_blank"
           >
             React
           </a>
@@ -26,8 +28,8 @@ function App() {
           <a
             className="App-link"
             href="https://redux.js.org/"
-            target="_blank"
             rel="noopener noreferrer"
+            target="_blank"
           >
             Redux
           </a>
@@ -35,8 +37,8 @@ function App() {
           <a
             className="App-link"
             href="https://redux-toolkit.js.org/"
-            target="_blank"
             rel="noopener noreferrer"
+            target="_blank"
           >
             Redux Toolkit
           </a>
@@ -44,8 +46,8 @@ function App() {
           <a
             className="App-link"
             href="https://react-redux.js.org/"
-            target="_blank"
             rel="noopener noreferrer"
+            target="_blank"
           >
             React Redux
           </a>
