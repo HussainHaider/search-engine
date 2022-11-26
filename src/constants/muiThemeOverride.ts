@@ -3,10 +3,25 @@ import {
   responsiveFontSizes,
 } from '@mui/material/styles';
 
+import {
+  spacingl,
+  spacingm,
+  spacings,
+  spacingxl,
+  spacingxs,
+  spacingxxl,
+  spacingxxl2,
+  spacingxxl3,
+  spacingxxl4,
+  spacingxxl5,
+  spacingxxs,
+} from './spacing';
+import typography from './typography';
 import { white } from './colors';
 
 const theme = responsiveFontSizes(
   createTheme({
+    typography: typography,
     components: {
       MuiCssBaseline: {
         styleOverrides: {
@@ -35,6 +50,19 @@ const theme = responsiveFontSizes(
         },
       },
     },
+    spacing: [
+      spacingxxs,
+      spacingxs,
+      spacings,
+      spacingm,
+      spacingl,
+      spacingxl,
+      spacingxxl,
+      spacingxxl2,
+      spacingxxl3,
+      spacingxxl4,
+      spacingxxl5,
+    ],
   }),
 );
 
