@@ -1,5 +1,5 @@
 //React imports
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement } from 'react';
 //other third party imports
 import AppBar from '@mui/material/AppBar';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -12,18 +12,11 @@ import Grid from '@mui/material/Unstable_Grid2';
 // import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Toolbar from '@mui/material/Toolbar';
-import { useAppDispatch } from '../../app/hooks';
 
 import NewsCard from '../Common/NewsCard/NewsCard';
 
 
 const Home = (): ReactElement => {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch({ type: 'GET_IMAGES' });
-  }, [])
-
   return (
     <Box>
       <AppBar component="nav"

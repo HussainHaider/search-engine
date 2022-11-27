@@ -1,5 +1,5 @@
 //React imports
-import React, { ReactElement, ReactNode, SyntheticEvent } from 'react'
+import React, { ReactElement, ReactNode, SyntheticEvent, useEffect } from 'react'
 //other third party imports
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
@@ -11,6 +11,7 @@ import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { useAppDispatch } from '../../app/hooks';
 
 
 type ITabPanelProps = {
@@ -47,6 +48,13 @@ function a11yProps(index: number): { id: string, 'aria-controls': string } {
 }
 
 const Search = (): ReactElement => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    console.log('useEffect!!');
+    dispatch({ type: 'GET_IMAGES', searchTerm: 'cricket', pageNumber: 1 });
+  }, []);
+
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {

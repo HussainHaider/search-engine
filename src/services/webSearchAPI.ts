@@ -1,5 +1,6 @@
 import instance from '../utilities/axios';
 
+import { ImageResponse } from '../interfaces/web';
 import { WEB_SEARCH_API } from '../constants/restEndPoints';
 
 /**
@@ -10,22 +11,7 @@ import { WEB_SEARCH_API } from '../constants/restEndPoints';
 export function getImages(
   searchTerm: string,
   pageNumber: number,
-): Promise<{
-  totalCount: number;
-  value: {
-    url: string;
-    height: number;
-    width: number;
-    thumbnail: string;
-    thumbnailHeight: number;
-    thumbnailWidth: number;
-    base64Encoding: string;
-    name: string;
-    title: string;
-    imageWebSearchUrl: string;
-    webpageUrl: string;
-  };
-}> {
+): Promise<ImageResponse> {
   return instance.get(WEB_SEARCH_API.IMAGE_SEARCH, {
     params: {
       q: searchTerm,

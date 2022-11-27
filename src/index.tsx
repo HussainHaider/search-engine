@@ -18,18 +18,16 @@ const container = document.getElementById('root')!;
 const root = createRoot(container);
 
 root.render(
-  <React.StrictMode>
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Provider store={store}>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </Provider>
-      </ThemeProvider>
-    </StyledEngineProvider>
-  </React.StrictMode>
+  <StyledEngineProvider injectFirst>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
+    </ThemeProvider>
+  </StyledEngineProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,10 +1,11 @@
 import { AxiosHeaders } from 'axios';
 // import { all } from 'redux-saga/effects';
 import { call } from 'redux-saga/effects';
-// import { put } from 'redux-saga/effects';
+import { put } from 'redux-saga/effects';
 import { takeLatest } from 'redux-saga/effects';
 
 import * as api from '../../services/webSearchAPI';
+import { getImages } from '../webSlice';
 
 interface ResponseGenerator {
   config?: any;
@@ -42,8 +43,7 @@ export function* getImagesSaga(data: {
       data.searchTerm,
       data.pageNumber,
     );
-    console.log(response);
-    // yield put(getCandidateEducationExperienceSuccess(response.data));
+    yield put(getImages(response.data));
   } catch (error) {
     console.log(error);
     // yield put(getCandidateEducationExperienceFail(errors));
