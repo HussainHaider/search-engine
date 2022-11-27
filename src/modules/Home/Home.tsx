@@ -14,6 +14,7 @@ import Toolbar from '@mui/material/Toolbar';
 // local imports
 import NewsCard from '../Common/NewsCard/NewsCard';
 import SearchBar from '../Common/SearchBar/SearchBar';
+import WeatherWidget from '../Common/WeatherWidget/WeatherWidget';
 
 
 const Home = (): ReactElement => {
@@ -22,7 +23,9 @@ const Home = (): ReactElement => {
       <StyledAppBar
         position="sticky">
         <Toolbar>
-          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ flexGrow: 1 }}>
+            <WeatherWidget />
+          </Box>
           <SearchBar />
           <Box sx={{ flexGrow: 1 }} />
         </Toolbar>
