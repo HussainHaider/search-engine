@@ -91,7 +91,7 @@ const WeatherWidget = (): ReactElement => {
   </WidgetWrapper>);
 };
 
-export default WeatherWidget;
+export default React.memo(WeatherWidget);
 
 type WrapperProps = {
   theme?: Theme,

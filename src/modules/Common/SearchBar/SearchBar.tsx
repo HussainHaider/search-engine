@@ -13,7 +13,14 @@ import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { clearAutoComplete } from '../../../store/reducers/webSlice';
 import { SEARCH } from '../../../constants/urlConstant';
 
-const SearchBar = (): ReactElement => {
+type SearchBarProps = {
+  color: 'primary' | 'secondary',
+}
+
+const SearchBar = (props: SearchBarProps): ReactElement => {
+  //props
+  const { color } = props;
+  // hooks
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const suggestions = useAppSelector((state) => state.web.autoComplete.data);
@@ -32,7 +39,7 @@ const SearchBar = (): ReactElement => {
     }}
     options={suggestions}
     renderInput={(params): ReactElement => <StyledTextField {...params}
-      color='secondary'
+      color={color}
       focused
       label="search the web"
     />}
@@ -64,12 +71,12 @@ const SearchBar = (): ReactElement => {
   />)
 }
 
-export default SearchBar;
+export default React.memo(SearchBar);
 
 const StyledTextField = styled(TextField)(
-  ({ theme }) => ({
+  ({ theme, color }) => ({
     'input': {
-      color: theme.palette.secondary.main,
+      color: color === 'secondary' ? theme.palette.secondary.main : theme.palette.primary.main,
     }
   }),
 );
