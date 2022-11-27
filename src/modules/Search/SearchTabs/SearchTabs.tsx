@@ -5,12 +5,12 @@ import Box from '@mui/material/Box';
 import ImageSearchIcon from '@mui/icons-material/ImageSearch';
 import LanguageIcon from '@mui/icons-material/Language';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
-import Pagination from '@mui/material/Pagination';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Typography from '@mui/material/Typography';
 //local imports
 import NewsBox from './NewsBox/NewsBox';
+import WebBox from './WebBox/WebBox';
 
 
 type ITabPanelProps = {
@@ -82,7 +82,7 @@ const SearchTabs = (): ReactElement => {
       </Box>
       <TabPanel index={0}
         value={value}>
-        <Pagination count={10} />
+        <WebBox />
       </TabPanel>
       <TabPanel index={1}
         value={value}>

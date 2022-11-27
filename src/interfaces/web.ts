@@ -61,6 +61,7 @@ export interface WebResponse extends ResponseGenerator {
 
 export interface WebData {
   totalCount: number;
+  relatedSearch: string[];
   value: Array<News>;
 }
 
