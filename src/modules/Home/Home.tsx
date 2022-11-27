@@ -9,7 +9,7 @@ import Box from '@mui/material/Box';
 // import SearchIcon from '@mui/icons-material/Search';
 import Grid from '@mui/material/Unstable_Grid2';
 // import Paper from '@mui/material/Paper';
-// import { styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Toolbar from '@mui/material/Toolbar';
 
@@ -19,9 +19,10 @@ import NewsCard from '../Common/NewsCard/NewsCard';
 const Home = (): ReactElement => {
   return (
     <Box>
-      <AppBar component="nav"
+      <StyledAppBar
         position="sticky">
         <Toolbar>
+          <Box sx={{ flexGrow: 1 }} />
           <Autocomplete
             freeSolo
             fullWidth
@@ -29,59 +30,20 @@ const Home = (): ReactElement => {
             options={[
               { label: 'The Shawshank Redemption', year: 1994 },
               { label: 'The Godfather', year: 1972 }]}
-            renderInput={(params) => <TextField {...params}
-              placeholder="search the web"
+            renderInput={(params): ReactElement => <StyledTextField {...params}
+              color='secondary'
+              focused
+              label="search the web"
             />}
+            sx={{ width: '60%' }}
           />
+          <Box sx={{ flexGrow: 1 }} />
         </Toolbar>
-      </AppBar>
+      </StyledAppBar>
       <Box component="main"
         sx={{ padding: '2.4rem' }}>
         <Grid container
           spacing={2}>
-
-          <Grid xs={3}>
-            <NewsCard />
-          </Grid>
-          <Grid xs={3}>
-            <NewsCard />
-          </Grid>
-          <Grid xs={3}>
-            <NewsCard />
-          </Grid>
-          <Grid xs={3}>
-            <NewsCard />
-          </Grid>
-          <Grid xs={3}>
-            <NewsCard />
-          </Grid>
-          <Grid xs={3}>
-            <NewsCard />
-          </Grid>
-          <Grid xs={3}>
-            <NewsCard />
-          </Grid>
-          <Grid xs={3}>
-            <NewsCard />
-          </Grid>
-          <Grid xs={3}>
-            <NewsCard />
-          </Grid>
-          <Grid xs={3}>
-            <NewsCard />
-          </Grid>
-          <Grid xs={3}>
-            <NewsCard />
-          </Grid>
-          <Grid xs={3}>
-            <NewsCard />
-          </Grid>
-          <Grid xs={3}>
-            <NewsCard />
-          </Grid>
-          <Grid xs={3}>
-            <NewsCard />
-          </Grid>
           <Grid xs={3}>
             <NewsCard />
           </Grid>
@@ -95,3 +57,20 @@ const Home = (): ReactElement => {
 }
 
 export default Home;
+
+const StyledAppBar = styled(AppBar)(
+  () => ({
+    background: 'url(\'https://images.unsplash.com/32/Mc8kW4x9Q3aRR3RkP5Im_IMG_4417.jpg?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80\')',
+    '& .MuiToolbar-root': {
+      minHeight: '20rem',
+    },
+  }),
+);
+
+const StyledTextField = styled(TextField)(
+  ({ theme }) => ({
+    'input': {
+      color: theme.palette.secondary.main,
+    }
+  }),
+);

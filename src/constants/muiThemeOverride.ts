@@ -16,8 +16,8 @@ import {
   spacingxxl5,
   spacingxxs,
 } from './spacing';
+import { white, black } from './colors';
 import typography from './typography';
-import { white } from './colors';
 
 const theme = responsiveFontSizes(
   createTheme({
@@ -48,6 +48,12 @@ const theme = responsiveFontSizes(
             display: 'none',
           },
         },
+      },
+    },
+    palette: {
+      secondary: {
+        main: white,
+        contrastText: black,
       },
     },
     spacing: [
