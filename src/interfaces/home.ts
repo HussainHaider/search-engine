@@ -17,10 +17,11 @@ export interface WeatherData {
   wind: number;
   pressure: number;
   humidity: number;
-  location: {
-    lat: number;
-    lon: number;
-    name: string;
-    country: string;
-  }
+}
+
+export interface LocationData {
+  lat: number;
+  lon: number;
+  name: string;
+  country: string;
 }

@@ -11,26 +11,27 @@ import { GET_WEATHER } from '../../../store/actionTypes/home';
 
 const WeatherWidget = (): ReactElement => {
   const dispatch = useAppDispatch();
+  const location = useAppSelector((state) => state.home.location);
   const weatherReport = useAppSelector((state) => state.home.weather);
 
   useEffect(() => {
     dispatch({
       type: GET_WEATHER,
       payload: {
-        searchTerm: 'Lahore'
+        searchTerm: `${location.lon},${location.lat}`
       }
     })
-  }, [])
+  }, []);
 
-  const lon = weatherReport.location.lon;
-  const lat = weatherReport.location.lat;
+  const lon = location.lon;
+  const lat = location.lat;
   const weatherdiscription = weatherReport.condition.text;
   const temp = weatherReport.tempC;
   const pressure = weatherReport.pressure;
   const humidity = weatherReport.humidity;
   const wind = weatherReport.wind;
-  const country = weatherReport.location.country;
-  const city = weatherReport.location.name;
+  const country = location.country;
+  const city = location.name;
   const isDay = weatherReport.isDay;
 
   const color = isDay ? 'primary' : 'secondary';

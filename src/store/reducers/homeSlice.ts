@@ -1,13 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
 //local imports
-import { WeatherData } from '../../interfaces/home';
+import { WeatherData, LocationData } from '../../interfaces/home';
 
 export interface homeState {
+  location: LocationData;
   weather: WeatherData;
   news: [];
 }
 
 const initialState: homeState = {
+  location: {
+    lat: 0,
+    lon: 0,
+    name: '',
+    country: '',
+  },
   weather: {
     isLoading: true,
     lastUpdated: '',
@@ -21,12 +28,6 @@ const initialState: homeState = {
     wind: 0,
     pressure: 0,
     humidity: 0,
-    location: {
-      lat: 0,
-      lon: 0,
-      name: '',
-      country: '',
-    },
   },
   news: [],
 };
@@ -52,15 +53,18 @@ export const homeSlice = createSlice({
       state.weather.pressure = action.payload.current['pressure_in'];
       state.weather.humidity = action.payload.current['humidity'];
 
-      state.weather.location.lat = action.payload.location['lat'];
-      state.weather.location.lon = action.payload.location['lon'];
-      state.weather.location.name = action.payload.location['name'];
-      state.weather.location.country =
-        action.payload.location['country'];
+      state.location.lat = action.payload.location['lat'];
+      state.location.lon = action.payload.location['lon'];
+      state.location.name = action.payload.location['name'];
+      state.location.country = action.payload.location['country'];
+    },
+    setLocation: (state, action) => {
+      state.location.lat = action.payload?.latitude;
+      state.location.lon = action.payload?.longitude;
     },
   },
 });
 
-export const {getWeather} = homeSlice.actions;
+export const { getWeather, setLocation } = homeSlice.actions;
 
 export default homeSlice.reducer;

@@ -1,23 +1,34 @@
 //React imports
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 //other third party imports
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-// import IconButton from '@mui/material/IconButton';
-// import InputAdornment from '@mui/material/InputAdornment';
-// import SearchIcon from '@mui/icons-material/Search';
 import Grid from '@mui/material/Unstable_Grid2';
-// import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-// import TextField from '@mui/material/TextField';
 import Toolbar from '@mui/material/Toolbar';
+import { useGeolocated } from 'react-geolocated';
 // local imports
 import NewsCard from '../Common/NewsCard/NewsCard';
 import SearchBar from '../Common/SearchBar/SearchBar';
+import { setLocation } from '../../store/reducers/homeSlice';
+import { useAppDispatch } from '../../app/hooks';
 import WeatherWidget from '../Common/WeatherWidget/WeatherWidget';
 
 
 const Home = (): ReactElement => {
+  const dispatch = useAppDispatch();
+  const { coords, isGeolocationEnabled } = useGeolocated({
+    positionOptions: {
+      enableHighAccuracy: true,
+    },
+    userDecisionTimeout: 5000,
+  });
+
+  useEffect(() => {
+    if (isGeolocationEnabled)
+      dispatch(setLocation(coords));
+  }, [isGeolocationEnabled, coords]);
+
   return (
     <Box>
       <StyledAppBar
