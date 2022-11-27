@@ -25,7 +25,7 @@ import {
 
 /**
  * @generator
- * @function candidateSaga
+ * @function webSearchSagas
  * @yields {function} This is a watcher Saga which yields an array with the results of calling our sagas. This means
  * the resulting Generators will be started in parallel.
  */

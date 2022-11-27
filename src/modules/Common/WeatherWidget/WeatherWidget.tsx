@@ -1,23 +1,37 @@
 //React imports
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 //other third party imports
 import { styled, Theme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+// local imports
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { GET_WEATHER } from '../../../store/actionTypes/home';
 
 const WeatherWidget = (): ReactElement => {
-  const lon = '24.9056';
-  const lat = '67.0822,';
-  // const weathermain = 'abc';
-  const weatherdiscription = 'cloudy';
-  const temp = '22';
-  const pressure = '09';
-  const humidity = '59';
-  const wind = '0.5';
-  const country = 'Pakistan';
-  const city = 'Lahore';
-  const isDay = 0;
+  const dispatch = useAppDispatch();
+  const weatherReport = useAppSelector((state) => state.home.weather);
+
+  useEffect(() => {
+    dispatch({
+      type: GET_WEATHER,
+      payload: {
+        searchTerm: 'Lahore'
+      }
+    })
+  }, [])
+
+  const lon = weatherReport.location.lon;
+  const lat = weatherReport.location.lat;
+  const weatherdiscription = weatherReport.condition.text;
+  const temp = weatherReport.tempC;
+  const pressure = weatherReport.pressure;
+  const humidity = weatherReport.humidity;
+  const wind = weatherReport.wind;
+  const country = weatherReport.location.country;
+  const city = weatherReport.location.name;
+  const isDay = weatherReport.isDay;
 
   const color = isDay ? 'primary' : 'secondary';
 

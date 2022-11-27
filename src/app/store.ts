@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 //local imports
+import homeReducer from '../store/reducers/homeSlice';
 import IndexSagas from '../store/sagas';
 import webReducer from '../store/reducers/webSlice';
 
@@ -10,6 +11,7 @@ const sagaMiddleware = createSagaMiddleware();
 export const store = configureStore({
   reducer: {
     web: webReducer,
+    home: homeReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ thunk: false }).concat(sagaMiddleware),
