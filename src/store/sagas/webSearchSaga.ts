@@ -1,15 +1,21 @@
-// import { all } from 'redux-saga/effects';
 import {
+  all,
   call,
   CallEffect,
   put,
   PutEffect,
   takeLatest,
 } from 'redux-saga/effects';
-
+// local imports
+import * as actionTypes from '../actionTypes/web';
 import * as api from '../../services/webSearchAPI';
-import { getImages } from '../webSlice';
-import { ImageResponse } from '../../interfaces/web';
+import { getImages, getNews, getWeb } from '../reducers/webSlice';
+import {
+  ImageResponse,
+  NewsResponse,
+  WebResponse,
+} from '../../interfaces/web';
+// import { Action } from '../../interfaces/common';
 
 /**
  * @generator
@@ -18,7 +24,19 @@ import { ImageResponse } from '../../interfaces/web';
  * the resulting Generators will be started in parallel.
  */
 function* webSearchSaga() {
-  yield takeLatest('GET_IMAGES', getImagesSaga);
+  yield all([
+    takeLatest(actionTypes.GET_IMAGES, getImagesSaga),
+    takeLatest(actionTypes.GET_NEWS, getNewsSaga),
+    takeLatest(actionTypes.GET_WEB_SEARCH, getWebSaga),
+  ]);
+}
+
+interface dataType {
+  type: string;
+  payload: {
+    searchTerm: string;
+    pageNumber: number;
+  };
 }
 
 /**
@@ -27,11 +45,7 @@ function* webSearchSaga() {
  * @param {object} data are the parameters
  * @yields {function}
  */
-export function* getImagesSaga(data: {
-  type: string;
-  searchTerm: string;
-  pageNumber: number;
-}): Generator<
+export function* getImagesSaga(data: dataType): Generator<
   // step types
   | CallEffect<ImageResponse>
   | PutEffect<{
@@ -45,10 +59,70 @@ export function* getImagesSaga(data: {
   try {
     const response: ImageResponse = yield call(
       api.getImages,
-      data.searchTerm,
-      data.pageNumber,
+      data.payload.searchTerm,
+      data.payload.pageNumber,
     );
     yield put(getImages(response.data));
+  } catch (error) {
+    console.log(error);
+    // yield put(getCandidateEducationExperienceFail(errors));
+  }
+}
+
+/**
+ * @generator
+ * @function getNewsSaga async call for get news search API
+ * @param {object} data are the parameters
+ * @yields {function}
+ */
+export function* getNewsSaga(data: dataType): Generator<
+  // step types
+  | CallEffect<NewsResponse>
+  | PutEffect<{
+      payload: any;
+      type: 'web/getNews';
+    }>,
+  // return type
+  void, // intermediate argument
+  NewsResponse
+> {
+  try {
+    const response: NewsResponse = yield call(
+      api.getNews,
+      data.payload.searchTerm,
+      data.payload.pageNumber,
+    );
+    yield put(getNews(response.data));
+  } catch (error) {
+    console.log(error);
+    // yield put(getCandidateEducationExperienceFail(errors));
+  }
+}
+
+/**
+ * @generator
+ * @function getNewsSaga async call for get web search API
+ * @param {object} data are the parameters
+ * @yields {function}
+ */
+export function* getWebSaga(data: dataType): Generator<
+  // step types
+  | CallEffect<WebResponse>
+  | PutEffect<{
+      payload: any;
+      type: 'web/getWeb';
+    }>,
+  // return type
+  void, // intermediate argument
+  WebResponse
+> {
+  try {
+    const response: WebResponse = yield call(
+      api.getWebSearch,
+      data.payload.searchTerm,
+      data.payload.pageNumber,
+    );
+    yield put(getWeb(response.data));
   } catch (error) {
     console.log(error);
     // yield put(getCandidateEducationExperienceFail(errors));

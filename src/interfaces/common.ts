@@ -8,3 +8,10 @@ export interface ResponseGenerator {
   status?: number;
   statusText?: string;
 }
+
+export interface Action {
+  type: string;
+  payload: {
+    [key: string]: string;
+  };
+}

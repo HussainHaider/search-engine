@@ -11,6 +11,8 @@ import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+//local imports
+import * as actionTypes from '../../store/actionTypes/web';
 import { useAppDispatch } from '../../app/hooks';
 
 
@@ -51,13 +53,16 @@ const Search = (): ReactElement => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    console.log('useEffect!!');
-    dispatch({ type: 'GET_IMAGES', searchTerm: 'cricket', pageNumber: 1 });
+    dispatch({
+      type: actionTypes.GET_IMAGES, payload: {
+        searchTerm: 'cricket', pageNumber: 1
+      }
+    });
   }, []);
 
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event: SyntheticEvent, newValue: number) => {
+  const handleChange = (event: SyntheticEvent, newValue: number): void => {
     setValue(newValue);
   };
 

@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 //local imports
 import IndexSagas from '../store/sagas';
-import webReducer from '../store/webSlice';
+import webReducer from '../store/reducers/webSlice';
 
 // Setup the middleware to watch between the Reducers and the Actions
 const sagaMiddleware = createSagaMiddleware();
