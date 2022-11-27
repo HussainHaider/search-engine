@@ -101,7 +101,12 @@ export function* getNewsSaga(data: dataType): Generator<
       data.payload.searchTerm,
       data.payload.pageNumber,
     );
-    yield put(getNews(response.data));
+    yield put(
+      getNews({
+        ...response.data,
+        pageNumber: data.payload.pageNumber,
+      }),
+    );
   } catch (error) {
     console.log(error);
   }

@@ -1,11 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 //local imports
-import { ImagesData, NewsData, WebData } from '../../interfaces/web';
+import { ImagesData, News, WebData } from '../../interfaces/web';
 
 export interface webState {
   value: number;
   imagesData: ImagesData;
-  newsData: NewsData;
+  newsData: {
+    totalCount: number;
+    data: {
+      [key: number]: Array<News>;
+    };
+  };
   webData: WebData;
   autoComplete: {
     isSearching: boolean; // added this state to show the suggestion and don't add empty data in the array while it is true
@@ -21,7 +26,7 @@ const initialState: webState = {
   },
   newsData: {
     totalCount: 0,
-    value: [],
+    data: {},
   },
   webData: {
     totalCount: 0,
@@ -55,11 +60,14 @@ export const webSlice = createSlice({
     },
     getNews: (state, action) => {
       state.newsData.totalCount = action.payload.totalCount;
-      state.newsData.value = action.payload.value;
+      state.newsData.data = {
+        ...state.newsData.data,
+        [action.payload.pageNumber]: action.payload.value,
+      };
     },
     getWeb: (state, action) => {
       state.newsData.totalCount = action.payload.totalCount;
-      state.newsData.value = action.payload.value;
+      state.newsData.data = action.payload.value;
     },
     setAutoComplete: (state, action) => {
       state.autoComplete.isSearching = true;

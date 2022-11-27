@@ -56,7 +56,7 @@ export interface News {
 }
 
 export interface WebResponse extends ResponseGenerator {
-  data: NewsData;
+  data: WebData;
 }
 
 export interface WebData {
