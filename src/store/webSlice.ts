@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ImageResponse } from '../interfaces/web';
+import { ImagesData } from '../interfaces/web';
 
 export interface CounterState {
   value: number;
-  imagesData: ImageResponse;
+  imagesData: ImagesData;
 }
 
 const initialState: CounterState = {

@@ -1,20 +1,15 @@
-import { AxiosHeaders } from 'axios';
 // import { all } from 'redux-saga/effects';
-import { call } from 'redux-saga/effects';
-import { put } from 'redux-saga/effects';
-import { takeLatest } from 'redux-saga/effects';
+import {
+  call,
+  CallEffect,
+  put,
+  PutEffect,
+  takeLatest,
+} from 'redux-saga/effects';
 
 import * as api from '../../services/webSearchAPI';
 import { getImages } from '../webSlice';
-
-interface ResponseGenerator {
-  config?: any;
-  data?: any;
-  headers?: AxiosHeaders;
-  request?: XMLHttpRequest;
-  status?: number;
-  statusText?: string;
-}
+import { ImageResponse } from '../../interfaces/web';
 
 /**
  * @generator
@@ -28,7 +23,7 @@ function* webSearchSaga() {
 
 /**
  * @generator
- * @function getImagesSaga
+ * @function getImagesSaga async call for get images search API
  * @param {object} data are the parameters
  * @yields {function}
  */
@@ -36,9 +31,19 @@ export function* getImagesSaga(data: {
   type: string;
   searchTerm: string;
   pageNumber: number;
-}) {
+}): Generator<
+  // step types
+  | CallEffect<ImageResponse>
+  | PutEffect<{
+      payload: any;
+      type: 'web/getImages';
+    }>,
+  // return type
+  void, // intermediate argument
+  ImageResponse
+> {
   try {
-    const response: ResponseGenerator = yield call(
+    const response: ImageResponse = yield call(
       api.getImages,
       data.searchTerm,
       data.pageNumber,

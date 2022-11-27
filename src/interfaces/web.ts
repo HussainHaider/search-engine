@@ -1,4 +1,10 @@
-export interface ImageResponse {
+import { ResponseGenerator } from './response';
+
+export interface ImageResponse extends ResponseGenerator {
+  data: ImagesData;
+}
+
+export interface ImagesData {
   totalCount: number;
   value: Array<Image>;
 }
