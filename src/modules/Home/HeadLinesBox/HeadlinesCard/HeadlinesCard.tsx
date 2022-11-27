@@ -8,7 +8,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 //local imports
-import { HeadlinesData } from '../../../interfaces/home';
+import { HeadlinesData } from '../../../../interfaces/home';
 
 type HeadlinesCardProps = {
   data: HeadlinesData,

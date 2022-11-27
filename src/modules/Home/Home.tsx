@@ -12,7 +12,7 @@ import { useAppDispatch } from '../../app/hooks';
 import HeadLinesBox from './HeadLinesBox/HeadLinesBox';
 import SearchBar from '../Common/SearchBar/SearchBar';
 import { setLocation } from '../../store/reducers/homeSlice';
-import WeatherWidget from '../Common/WeatherWidget/WeatherWidget';
+import WeatherWidget from './WeatherWidget/WeatherWidget';
 
 
 const Home = (): ReactElement => {

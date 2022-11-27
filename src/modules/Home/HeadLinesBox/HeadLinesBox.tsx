@@ -6,7 +6,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 // local imports
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { GET_HEADLINES } from '../../../store/actionTypes/home';
-import HeadlinesCard from '../../Common/HeadlinesCard/HeadlinesCard';
+import HeadlinesCard from './HeadlinesCard/HeadlinesCard';
 
 
 const HeadLinesBox = (): ReactElement => {
