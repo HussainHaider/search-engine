@@ -7,6 +7,10 @@ export interface webState {
   imagesData: ImagesData;
   newsData: NewsData;
   webData: WebData;
+  autoComplete: {
+    isSearching: boolean; // added this state to show the suggestion and don't add empty data in the array while it is true
+    data: string[];
+  };
 }
 
 const initialState: webState = {
@@ -22,6 +26,21 @@ const initialState: webState = {
   webData: {
     totalCount: 0,
     value: [],
+  },
+  autoComplete: {
+    isSearching: false,
+    data: [
+      'download',
+      'dog',
+      'download free',
+      'download mp3',
+      'domain',
+      'donald trump',
+      'doctors',
+      'download pdf',
+      'documentation',
+      'double',
+    ],
   },
 };
 
@@ -42,9 +61,25 @@ export const webSlice = createSlice({
       state.newsData.totalCount = action.payload.totalCount;
       state.newsData.value = action.payload.value;
     },
+    setAutoComplete: (state, action) => {
+      state.autoComplete.isSearching = true;
+      if (action.payload) {
+        state.autoComplete.data = action.payload;
+      }
+    },
+    clearAutoComplete: (state) => {
+      state.autoComplete.isSearching = false;
+      state.autoComplete.data = [];
+    },
   },
 });
 
-export const { getImages, getNews, getWeb } = webSlice.actions;
+export const {
+  getImages,
+  getNews,
+  getWeb,
+  setAutoComplete,
+  clearAutoComplete,
+} = webSlice.actions;
 
 export default webSlice.reducer;

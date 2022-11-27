@@ -2,7 +2,6 @@
 import React, { ReactElement } from 'react';
 //other third party imports
 import AppBar from '@mui/material/AppBar';
-import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
 // import IconButton from '@mui/material/IconButton';
 // import InputAdornment from '@mui/material/InputAdornment';
@@ -10,10 +9,11 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
 // import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import TextField from '@mui/material/TextField';
+// import TextField from '@mui/material/TextField';
 import Toolbar from '@mui/material/Toolbar';
-
+// local imports
 import NewsCard from '../Common/NewsCard/NewsCard';
+import SearchBar from '../Common/SearchBar/SearchBar';
 
 
 const Home = (): ReactElement => {
@@ -23,20 +23,7 @@ const Home = (): ReactElement => {
         position="sticky">
         <Toolbar>
           <Box sx={{ flexGrow: 1 }} />
-          <Autocomplete
-            freeSolo
-            fullWidth
-            id="search-box"
-            options={[
-              { label: 'The Shawshank Redemption', year: 1994 },
-              { label: 'The Godfather', year: 1972 }]}
-            renderInput={(params): ReactElement => <StyledTextField {...params}
-              color='secondary'
-              focused
-              label="search the web"
-            />}
-            sx={{ width: '60%' }}
-          />
+          <SearchBar />
           <Box sx={{ flexGrow: 1 }} />
         </Toolbar>
       </StyledAppBar>
@@ -64,13 +51,5 @@ const StyledAppBar = styled(AppBar)(
     '& .MuiToolbar-root': {
       minHeight: '20rem',
     },
-  }),
-);
-
-const StyledTextField = styled(TextField)(
-  ({ theme }) => ({
-    'input': {
-      color: theme.palette.secondary.main,
-    }
   }),
 );

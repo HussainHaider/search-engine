@@ -82,3 +82,7 @@ export interface Web {
   };
   image: Image;
 }
+
+export interface AutoCompleteResponse extends ResponseGenerator {
+  data: string[];
+}

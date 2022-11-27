@@ -2,6 +2,7 @@ import {
   ImageResponse,
   NewsResponse,
   WebResponse,
+  AutoCompleteResponse,
 } from '../interfaces/web';
 import instance from '../utilities/axios';
 import { WEB_SEARCH_API } from '../constants/restEndPoints';
@@ -51,6 +52,17 @@ export function getWebSearch(
       pageNumber,
       pageSize: '10',
       autoCorrect: 'true',
+    },
+    headers: WEB_SEARCH_API.HEADERS,
+  });
+}
+
+export function getSearchSuggestion(
+  searchTerm: string,
+): Promise<AutoCompleteResponse> {
+  return instance.get(WEB_SEARCH_API.AUTO_COMPLETE, {
+    params: {
+      text: searchTerm,
     },
     headers: WEB_SEARCH_API.HEADERS,
   });

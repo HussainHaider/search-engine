@@ -9,11 +9,17 @@ import {
 // local imports
 import * as actionTypes from '../actionTypes/web';
 import * as api from '../../services/webSearchAPI';
-import { getImages, getNews, getWeb } from '../reducers/webSlice';
+import {
+  getImages,
+  getNews,
+  getWeb,
+  setAutoComplete,
+} from '../reducers/webSlice';
 import {
   ImageResponse,
   NewsResponse,
   WebResponse,
+  AutoCompleteResponse,
 } from '../../interfaces/web';
 // import { Action } from '../../interfaces/common';
 
@@ -28,6 +34,10 @@ function* webSearchSaga() {
     takeLatest(actionTypes.GET_IMAGES, getImagesSaga),
     takeLatest(actionTypes.GET_NEWS, getNewsSaga),
     takeLatest(actionTypes.GET_WEB_SEARCH, getWebSaga),
+    takeLatest(
+      actionTypes.GET_SEARCH_SUGGESTIONS,
+      getSearchSuggestionSaga,
+    ),
   ]);
 }
 
@@ -65,7 +75,6 @@ export function* getImagesSaga(data: dataType): Generator<
     yield put(getImages(response.data));
   } catch (error) {
     console.log(error);
-    // yield put(getCandidateEducationExperienceFail(errors));
   }
 }
 
@@ -95,7 +104,6 @@ export function* getNewsSaga(data: dataType): Generator<
     yield put(getNews(response.data));
   } catch (error) {
     console.log(error);
-    // yield put(getCandidateEducationExperienceFail(errors));
   }
 }
 
@@ -125,7 +133,34 @@ export function* getWebSaga(data: dataType): Generator<
     yield put(getWeb(response.data));
   } catch (error) {
     console.log(error);
-    // yield put(getCandidateEducationExperienceFail(errors));
+  }
+}
+
+/**
+ * @generator
+ * @function getSearchSuggestionSaga async call for get web search API
+ * @param {object} data are the parameters
+ * @yields {function}
+ */
+export function* getSearchSuggestionSaga(data: dataType): Generator<
+  // step types
+  | CallEffect<AutoCompleteResponse>
+  | PutEffect<{
+      payload: any;
+      type: 'web/setAutoComplete';
+    }>,
+  // return type
+  void, // intermediate argument
+  AutoCompleteResponse
+> {
+  try {
+    const response: AutoCompleteResponse = yield call(
+      api.getSearchSuggestion,
+      data.payload.searchTerm,
+    );
+    yield put(setAutoComplete(response.data));
+  } catch (error) {
+    console.log(error);
   }
 }
 
