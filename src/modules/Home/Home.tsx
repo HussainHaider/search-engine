@@ -8,15 +8,18 @@ import { styled } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import { useGeolocated } from 'react-geolocated';
 // local imports
-import NewsCard from '../Common/NewsCard/NewsCard';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { GET_HEADLINES } from '../../store/actionTypes/home';
+import HeadlinesCard from '../Common/HeadlinesCard/HeadlinesCard';
 import SearchBar from '../Common/SearchBar/SearchBar';
 import { setLocation } from '../../store/reducers/homeSlice';
-import { useAppDispatch } from '../../app/hooks';
 import WeatherWidget from '../Common/WeatherWidget/WeatherWidget';
 
 
 const Home = (): ReactElement => {
   const dispatch = useAppDispatch();
+  const headLines = useAppSelector((state) => state.home.news);
+  const city = useAppSelector((state) => state.home.location.name);
   const { coords, isGeolocationEnabled } = useGeolocated({
     positionOptions: {
       enableHighAccuracy: true,
@@ -28,6 +31,17 @@ const Home = (): ReactElement => {
     if (isGeolocationEnabled)
       dispatch(setLocation(coords));
   }, [isGeolocationEnabled, coords]);
+
+  useEffect(() => {
+    if (city)
+      dispatch({
+        type: GET_HEADLINES,
+        payload: {
+          searchTerm: 'Lahore',
+        }
+      });
+  }, [city]);
+
 
   return (
     <Box>
@@ -42,15 +56,15 @@ const Home = (): ReactElement => {
         </Toolbar>
       </StyledAppBar>
       <Box component="main"
-        sx={{ padding: '2.4rem' }}>
+        sx={{ padding: '2.4rem' }}>.
         <Grid container
           spacing={2}>
-          <Grid xs={3}>
-            <NewsCard />
-          </Grid>
-          <Grid xs={3}>
-            <NewsCard />
-          </Grid>
+          {
+            headLines.map((news) => (<Grid key={news.title}
+              xs={3}>
+              <HeadlinesCard data={news} />
+            </Grid>))
+          }
         </Grid>
       </Box>
     </Box>

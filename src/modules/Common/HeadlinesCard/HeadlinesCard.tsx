@@ -7,26 +7,33 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+//local imports
+import { HeadlinesData } from '../../../interfaces/home';
 
-export default function ImgMediaCard(): ReactElement {
+type HeadlinesCardProps = {
+  data: HeadlinesData,
+}
+
+const HeadlinesCard = (props: HeadlinesCardProps): ReactElement => {
+  const { data } = props;
+  const { title, link, photoUrl, publishedDatetime, sourceUrl, sourceLogo } = data;
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
         alt="green iguana"
         component="img"
         height="140"
-        image="/static/images/cards/contemplative-reptile.jpg"
+        image={photoUrl}
       />
       <CardContent>
         <Typography component="div"
           gutterBottom
           variant="h5">
-          Lizard
+          {title}
         </Typography>
         <Typography color="text.secondary"
           variant="body2">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+          {link}, {publishedDatetime}, {sourceUrl}, {sourceLogo}
         </Typography>
       </CardContent>
       <CardActions>
@@ -35,3 +42,5 @@ export default function ImgMediaCard(): ReactElement {
     </Card>
   );
 }
+
+export default HeadlinesCard;

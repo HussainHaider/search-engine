@@ -25,3 +25,20 @@ export interface LocationData {
   name: string;
   country: string;
 }
+
+export interface HeadlinesResponse extends ResponseGenerator {
+  data: {
+    status: string;
+    request_id: string;
+    data: HeadlinesData[];
+  };
+}
+
+export interface HeadlinesData {
+  title: string;
+  link: string;
+  photoUrl: string;
+  publishedDatetime: string;
+  sourceUrl: string;
+  sourceLogo: string;
+}

@@ -10,8 +10,11 @@ import {
 import * as actionTypes from '../actionTypes/home';
 import * as api from '../../services/homeAPI';
 
-import { getWeather } from '../reducers/homeSlice';
-import { WeatherResponse } from '../../interfaces/home';
+import { getWeather, getHeadlines } from '../reducers/homeSlice';
+import {
+  WeatherResponse,
+  HeadlinesResponse,
+} from '../../interfaces/home';
 
 /**
  * @generator
@@ -20,7 +23,10 @@ import { WeatherResponse } from '../../interfaces/home';
  * the resulting Generators will be started in parallel.
  */
 function* homeSaga() {
-  yield all([takeLatest(actionTypes.GET_WEATHER, getImagesSaga)]);
+  yield all([
+    takeLatest(actionTypes.GET_WEATHER, getWeatherSaga),
+    takeLatest(actionTypes.GET_HEADLINES, getHeadlinesSaga),
+  ]);
 }
 
 interface dataType {
@@ -32,11 +38,11 @@ interface dataType {
 
 /**
  * @generator
- * @function getImagesSaga async call for get images search API
+ * @function getWeatherSaga async call for get images search API
  * @param {object} data are the parameters
  * @yields {function}
  */
-export function* getImagesSaga(data: dataType): Generator<
+export function* getWeatherSaga(data: dataType): Generator<
   // step types
   | CallEffect<WeatherResponse>
   | PutEffect<{
@@ -53,6 +59,34 @@ export function* getImagesSaga(data: dataType): Generator<
       data.payload.searchTerm,
     );
     yield put(getWeather(response.data));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+/**
+ * @generator
+ * @function getHeadlinesSaga async call for get images search API
+ * @param {object} data are the parameters
+ * @yields {function}
+ */
+export function* getHeadlinesSaga(data: dataType): Generator<
+  // step types
+  | CallEffect<HeadlinesResponse>
+  | PutEffect<{
+      payload: any;
+      type: 'home/getHeadlines';
+    }>,
+  // return type
+  void, // intermediate argument
+  HeadlinesResponse
+> {
+  try {
+    const response: HeadlinesResponse = yield call(
+      api.getHomeNews,
+      data.payload.searchTerm,
+    );
+    yield put(getHeadlines(response.data));
   } catch (error) {
     console.log(error);
   }

@@ -1,11 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 //local imports
-import { WeatherData, LocationData } from '../../interfaces/home';
+import {
+  WeatherData,
+  LocationData,
+  HeadlinesData,
+} from '../../interfaces/home';
 
 export interface homeState {
   location: LocationData;
   weather: WeatherData;
-  news: [];
+  news: HeadlinesData[];
 }
 
 const initialState: homeState = {
@@ -62,9 +66,31 @@ export const homeSlice = createSlice({
       state.location.lat = action.payload?.latitude;
       state.location.lon = action.payload?.longitude;
     },
+    getHeadlines: (state, action) => {
+      state.news = action.payload.data.map(
+        (newsItem: {
+          title: string;
+          link: string;
+          photo_url: string;
+          published_datetime_utc: string;
+          source_url: string;
+          source_logo_url: string;
+        }) => {
+          return {
+            title: newsItem['title'],
+            link: newsItem['link'],
+            photoUrl: newsItem['photo_url'],
+            publishedDatetime: newsItem['published_datetime_utc'],
+            sourceUrl: newsItem['source_url'],
+            sourceLogo: newsItem['source_logo_url'],
+          };
+        },
+      );
+    },
   },
 });
 
-export const { getWeather, setLocation } = homeSlice.actions;
+export const { getWeather, setLocation, getHeadlines } =
+  homeSlice.actions;
 
 export default homeSlice.reducer;

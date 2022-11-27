@@ -1,6 +1,14 @@
+import iso from 'iso-3166-1';
+//local imports
+import {
+  WEATHER_API,
+  REAL_TIME_NEWS_API,
+} from '../constants/restEndPoints';
+import {
+  WeatherResponse,
+  HeadlinesResponse,
+} from '../interfaces/home';
 import instance from '../utilities/axios';
-import { WEATHER_API } from '../constants/restEndPoints';
-import { WeatherResponse } from '../interfaces/home';
 
 /**
  * get images search API call
@@ -15,5 +23,18 @@ export function getWeatherUpdates(
       q: searchTerm,
     },
     headers: WEATHER_API.HEADERS,
+  });
+}
+
+export function getHomeNews(
+  country: string,
+): Promise<HeadlinesResponse> {
+  console.log(iso.whereCountry(country)?.alpha2);
+  return instance.get(REAL_TIME_NEWS_API.HEADLINES, {
+    params: {
+      country: iso.whereCountry(country)?.alpha2,
+      lang: 'en',
+    },
+    headers: REAL_TIME_NEWS_API.HEADERS,
   });
 }

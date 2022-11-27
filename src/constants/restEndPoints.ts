@@ -1,11 +1,11 @@
 const WEATHER_BASE_URL = 'https://weatherapi-com.p.rapidapi.com';
 const WEB_BASE_URL =
   'https://contextualwebsearch-websearch-v1.p.rapidapi.com/api';
-const REAL_TIME_NEWS_BASE_URL =
-  'https://real-time-news-data.p.rapidapi.com';
 
+// below two keys should be in env file
 const rapidAPIKey =
   '5fb3834782msha1b6a47401eadd8p18abf4jsnf967daef4d8e';
+const newsdataAPIKey = 'pub_13928841df9ac4efdee0ef7cbdd0c2f202fe7';
 
 export const WEATHER_API = {
   REAL_TIME_WEATHER: `${WEATHER_BASE_URL}/current.json`,
@@ -28,9 +28,6 @@ export const WEB_SEARCH_API = {
 };
 
 export const REAL_TIME_NEWS_API = {
-  HEADLINES: `${REAL_TIME_NEWS_BASE_URL}/local-headlines`,
-  HEADERS: {
-    'X-RapidAPI-Key': rapidAPIKey,
-    'X-RapidAPI-Host': 'real-time-news-data.p.rapidapi.com',
-  },
+  HEADLINES: `https://newsdata.io/api/1/news?apikey=${newsdataAPIKey}`,
+  HEADERS: {},
 };
