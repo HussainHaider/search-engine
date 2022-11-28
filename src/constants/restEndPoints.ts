@@ -31,3 +31,7 @@ export const REAL_TIME_NEWS_API = {
   HEADLINES: `https://newsdata.io/api/1/news?apikey=${newsdataAPIKey}`,
   HEADERS: {},
 };
+
+export const LOCATION_API = {
+  GEO: 'https://geolocation-db.com/json/',
+};

@@ -7,17 +7,19 @@ import { styled } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import { useGeolocated } from 'react-geolocated';
 // local imports
-import { useAppDispatch } from '../../app/hooks';
-// import { GET_HEADLINES } from '../../store/actionTypes/home';
+import { GET_LOCATION } from '../../store/actionTypes/home';
+import { getWeatherAction } from '../../store/actions/home';
 import HeadLinesBox from './HeadLinesBox/HeadLinesBox';
 import SearchBar from '../Common/SearchBar/SearchBar';
 import { setLocation } from '../../store/reducers/homeSlice';
+import { useAppDispatch } from '../../app/hooks';
 import WeatherWidget from './WeatherWidget/WeatherWidget';
+
 
 
 const Home = (): ReactElement => {
   const dispatch = useAppDispatch();
-  const { coords, isGeolocationEnabled } = useGeolocated({
+  const { coords, isGeolocationAvailable, isGeolocationEnabled } = useGeolocated({
     positionOptions: {
       enableHighAccuracy: true,
     },
@@ -25,9 +27,16 @@ const Home = (): ReactElement => {
   });
 
   useEffect(() => {
-    if (isGeolocationEnabled)
+    if (isGeolocationEnabled && coords) {
       dispatch(setLocation(coords));
+      dispatch(getWeatherAction(coords.latitude, coords.longitude));
+    }
   }, [isGeolocationEnabled, coords]);
+
+  useEffect(() => {
+    if (!isGeolocationAvailable || !isGeolocationEnabled)
+      dispatch({ type: GET_LOCATION });
+  }, [isGeolocationAvailable, isGeolocationEnabled]);
 
   return (
     <Box>

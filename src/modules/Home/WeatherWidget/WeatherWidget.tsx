@@ -1,27 +1,17 @@
 //React imports
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement } from 'react';
 //other third party imports
 import { styled, Theme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 // local imports
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { GET_WEATHER } from '../../../store/actionTypes/home';
+import { useAppSelector } from '../../../app/hooks';
+
 
 const WeatherWidget = (): ReactElement => {
-  const dispatch = useAppDispatch();
   const location = useAppSelector((state) => state.home.location);
   const weatherReport = useAppSelector((state) => state.home.weather);
-
-  useEffect(() => {
-    dispatch({
-      type: GET_WEATHER,
-      payload: {
-        searchTerm: `${location.lon},${location.lat}`
-      }
-    })
-  }, []);
 
   const lon = location.lon;
   const lat = location.lat;

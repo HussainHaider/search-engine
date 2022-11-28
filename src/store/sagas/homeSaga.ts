@@ -9,13 +9,18 @@ import {
 // local imports
 import * as actionTypes from '../actionTypes/home';
 import * as api from '../../services/homeAPI';
-
-import { getWeather, getHeadlines } from '../reducers/homeSlice';
+import {
+  getWeather,
+  getHeadlines,
+  setLocation,
+} from '../reducers/homeSlice';
 import {
   WeatherResponse,
   HeadlinesResponse,
+  LocationResponse,
 } from '../../interfaces/home';
 import { Action } from '../../interfaces/common';
+import { getWeatherAction } from '../actions/home';
 
 /**
  * @generator
@@ -27,6 +32,7 @@ function* homeSaga() {
   yield all([
     takeLatest(actionTypes.GET_WEATHER, getWeatherSaga),
     takeLatest(actionTypes.GET_HEADLINES, getHeadlinesSaga),
+    takeLatest(actionTypes.GET_LOCATION, getLocationSaga),
   ]);
 }
 
@@ -80,6 +86,22 @@ export function* getHeadlinesSaga(data: dataType): Generator<
       data.payload.searchTerm,
     );
     yield put(getHeadlines(response.data));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+/**
+ * @generator
+ * @function getLocationSaga async call for get images search API
+ * @yields {function}
+ */
+export function* getLocationSaga() {
+  try {
+    const response: LocationResponse = yield call(api.getLocation);
+    const { data } = response;
+    yield put(setLocation(data));
+    yield put(getWeatherAction(data.latitude, data.longitude));
   } catch (error) {
     console.log(error);
   }

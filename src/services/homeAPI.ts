@@ -3,10 +3,12 @@ import iso from 'iso-3166-1';
 import {
   WEATHER_API,
   REAL_TIME_NEWS_API,
+  LOCATION_API,
 } from '../constants/restEndPoints';
 import {
   WeatherResponse,
   HeadlinesResponse,
+  LocationResponse,
 } from '../interfaces/home';
 import instance from '../utilities/axios';
 
@@ -29,7 +31,6 @@ export function getWeatherUpdates(
 export function getHomeNews(
   country: string,
 ): Promise<HeadlinesResponse> {
-  console.log(iso.whereCountry(country)?.alpha2);
   return instance.get(REAL_TIME_NEWS_API.HEADLINES, {
     params: {
       country: iso.whereCountry(country)?.alpha2,
@@ -37,4 +38,8 @@ export function getHomeNews(
     },
     headers: REAL_TIME_NEWS_API.HEADERS,
   });
+}
+
+export function getLocation(): Promise<LocationResponse> {
+  return instance.get(LOCATION_API.GEO);
 }
