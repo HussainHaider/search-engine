@@ -1,10 +1,10 @@
-import React, { ReactElement, SyntheticEvent } from 'react';
+import React, { ReactElement } from 'react';
 //other third party imports
 import AutoSizer from 'react-virtualized-auto-sizer';
 import Box from '@mui/material/Box';
 import { VariableSizeGrid as Grid } from 'react-window';
-// import InfiniteLoader from 'react-window-infinite-loader';
 import { styled } from '@mui/material/styles';
+import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 // local imports
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
 import { GET_IMAGES } from '../../../../store/actionTypes/web';
@@ -25,6 +25,14 @@ const ImagesBox = (): ReactElement => {
   const dispatch = useAppDispatch();
   const imagesData = useAppSelector((state) => state.web.imagesData);
   //hooks
+  // use the following hook for infiniteScrolling purpose
+  useBottomScrollListener(() => {
+    fetchData(pageNumber + 1);
+  }, {
+    offset: 50,
+    debounce: 2000,
+    triggerOnNoScroll: true
+  });
   const [searchTerm] = useParams(GET_IMAGES);
 
   const { value, pageNumber } = imagesData;
@@ -37,23 +45,8 @@ const ImagesBox = (): ReactElement => {
     });
   }
 
-  const handleScroll = (e: SyntheticEvent): void => {
-    console.log('scrolling');
-    const target = e.target as HTMLInputElement;
-    const bottom = target?.scrollHeight - target?.scrollTop === target?.clientHeight;
-    console.log('bottom: ' + bottom);
-    if (bottom) {
-      console.log('bottom hit!!');
-      fetchData(pageNumber);
-    }
-  }
-
-  // useEffect(() => {
-  //   fetchData(pageNumber);
-  // }, []);
-
   return (
-    <MasonryWrapper onScroll={handleScroll}>
+    <MasonryWrapper>
       <AutoSizer>
         {({ width, height }): ReactElement => {
           const columnCount = 4;

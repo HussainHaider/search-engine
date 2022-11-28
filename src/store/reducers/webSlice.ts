@@ -59,7 +59,10 @@ export const webSlice = createSlice({
   reducers: {
     getImages: (state, action) => {
       state.imagesData.totalCount = action.payload.totalCount;
-      state.imagesData.value = action.payload.value;
+      state.imagesData.value = [
+        ...state.imagesData.value,
+        ...action.payload.value,
+      ];
       state.imagesData.pageNumber = action.payload.pageNumber;
     },
     getNews: (state, action) => {
