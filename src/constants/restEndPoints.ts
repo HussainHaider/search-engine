@@ -2,9 +2,8 @@ const WEATHER_BASE_URL = 'https://weatherapi-com.p.rapidapi.com';
 const WEB_BASE_URL =
   'https://contextualwebsearch-websearch-v1.p.rapidapi.com/api';
 
-// below two keys should be in env file
-const rapidAPIKey =
-  '5fb3834782msha1b6a47401eadd8p18abf4jsnf967daef4d8e';
+// below two keys is in env file
+const rapidAPIKey = process.env.REACT_APP_RAPID_API_KEY;
 const newsdataAPIKey = 'pub_13928841df9ac4efdee0ef7cbdd0c2f202fe7';
 
 export const WEATHER_API = {
