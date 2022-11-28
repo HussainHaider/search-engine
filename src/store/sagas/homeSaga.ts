@@ -45,8 +45,8 @@ interface dataType {
 
 /**
  * @generator
- * @function getWeatherSaga async call for get images search API
- * @param {object} data are the parameters
+ * @function getWeatherSaga async call for Weather search API and later save in the reducer
+ * @param {object} data
  * @yields {function}
  */
 export function* getWeatherSaga(data: dataType): Generator<
@@ -69,7 +69,7 @@ export function* getWeatherSaga(data: dataType): Generator<
 
 /**
  * @generator
- * @function getHeadlinesSaga async call for get images search API
+ * @function getHeadlinesSaga async call for get news search API and later save in the reducer
  * @param {object} data are the parameters
  * @yields {function}
  */
@@ -93,7 +93,7 @@ export function* getHeadlinesSaga(data: dataType): Generator<
 
 /**
  * @generator
- * @function getLocationSaga async call for get images search API
+ * @function getLocationSaga async call for get location search API and later save in the reducer
  * @yields {function}
  */
 export function* getLocationSaga() {

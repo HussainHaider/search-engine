@@ -52,7 +52,7 @@ interface dataType {
 
 /**
  * @generator
- * @function getImagesSaga async call for get images search API
+ * @function getImagesSaga async call for get images search API and later save in the reducer
  * @param {object} data are the parameters
  * @yields {function}
  */
@@ -82,7 +82,7 @@ export function* getImagesSaga(data: dataType): Generator<
 
 /**
  * @generator
- * @function getNewsSaga async call for get news search API
+ * @function getNewsSaga async call for get news search API and later save in the reducer
  * @param {object} data are the parameters
  * @yields {function}
  */
@@ -118,7 +118,7 @@ export function* getNewsSaga(data: dataType): Generator<
 
 /**
  * @generator
- * @function getNewsSaga async call for get web search API
+ * @function getWebSaga async call for get web search API and later save in the reducer
  * @param {object} data are the parameters
  * @yields {function}
  */
@@ -154,7 +154,7 @@ export function* getWebSaga(data: dataType): Generator<
 
 /**
  * @generator
- * @function getSearchSuggestionSaga async call for get web search API
+ * @function getSearchSuggestionSaga async call for get web search API and later save in the reducer
  * @param {object} data are the parameters
  * @yields {function}
  */

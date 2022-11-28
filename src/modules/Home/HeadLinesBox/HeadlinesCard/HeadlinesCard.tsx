@@ -29,7 +29,7 @@ const HeadlinesCard = (props: HeadlinesCardProps): ReactElement => {
         alt="green iguana"
         component="img"
         height="140"
-        image={photoUrl}
+        image={photoUrl || 'https://images.pond5.com/breaking-news-background-red-colour-footage-158889432_prevstill.jpeg'} // added alternative url
       />
       <CardContent>
         <Typography component="div"
@@ -39,7 +39,7 @@ const HeadlinesCard = (props: HeadlinesCardProps): ReactElement => {
         </Typography>
         <Typography color="text.secondary"
           variant="body2">
-          {publishedDatetime.split('T')[0]}
+          {publishedDatetime?.split('T')[0]}
         </Typography>
       </CardContent>
       <CardActions>

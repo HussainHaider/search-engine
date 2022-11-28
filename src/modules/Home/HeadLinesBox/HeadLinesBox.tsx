@@ -11,18 +11,18 @@ import HeadlinesCard from './HeadlinesCard/HeadlinesCard';
 
 const HeadLinesBox = (): ReactElement => {
   const dispatch = useAppDispatch();
-  const city = useAppSelector((state) => state.home.location.name);
+  const country = useAppSelector((state) => state.home.location.country);
   const headLines = useAppSelector((state) => state.home.news);
 
   useEffect(() => {
-    if (city)
+    if (country)
       dispatch({
         type: GET_HEADLINES,
         payload: {
-          searchTerm: 'Lahore',
+          searchTerm: country,
         }
       });
-  }, [city]);
+  }, [country]);
 
   return (
     <Box component="main"

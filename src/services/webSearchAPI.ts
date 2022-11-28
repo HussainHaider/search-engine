@@ -9,7 +9,8 @@ import { WEB_SEARCH_API } from '../constants/restEndPoints';
 
 /**
  * get images search API call
- * @param {object} searchTerm
+ * @param {string} searchTerm user search term
+ * @param {number} pageNumber
  * @return {Promise} axios return the promise with the data
  */
 export function getImages(
@@ -27,6 +28,12 @@ export function getImages(
   });
 }
 
+/**
+ * get news search API call
+ * @param {string} searchTerm user search term
+ * @param {number} pageNumber
+ * @return {Promise} axios return the promise with the data
+ */
 export function getNews(
   searchTerm: string,
   pageNumber: number,
@@ -42,6 +49,12 @@ export function getNews(
   });
 }
 
+/**
+ * get web search API call
+ * @param {string} searchTerm user search term
+ * @param {number} pageNumber
+ * @return {Promise} axios return the promise with the data
+ */
 export function getWebSearch(
   searchTerm: string,
   pageNumber: number,
@@ -57,6 +70,11 @@ export function getWebSearch(
   });
 }
 
+/**
+ * get search suggestions or autocomplete API call
+ * @param {string} searchTerm user search term
+ * @return {Promise} axios return the promise with the data
+ */
 export function getSearchSuggestion(
   searchTerm: string,
 ): Promise<AutoCompleteResponse> {

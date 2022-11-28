@@ -93,6 +93,7 @@ const WidgetWrapper = styled(Box, {
 })(
   ({ theme, isDay }: WrapperProps) => ({
     marginRight: theme?.spacing(7),
+    // changing backgound depending on the part of day
     background: isDay ? 'linear-gradient(45deg,#9bf8f4,#6f7bf7)' : 'linear-gradient(45deg,#0e0e11,#383c47)',
   }),
 );

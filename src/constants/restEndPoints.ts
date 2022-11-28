@@ -1,10 +1,10 @@
+// below two keys is in env file
+const rapidAPIKey = process.env.REACT_APP_RAPID_API_KEY;
+const newsdataAPIKey = process.env.REACT_APP_NEWS_DATA_API_KEY;
+
 const WEATHER_BASE_URL = 'https://weatherapi-com.p.rapidapi.com';
 const WEB_BASE_URL =
   'https://contextualwebsearch-websearch-v1.p.rapidapi.com/api';
-
-// below two keys is in env file
-const rapidAPIKey = process.env.REACT_APP_RAPID_API_KEY;
-const newsdataAPIKey = 'pub_13928841df9ac4efdee0ef7cbdd0c2f202fe7';
 
 export const WEATHER_API = {
   REAL_TIME_WEATHER: `${WEATHER_BASE_URL}/current.json`,
@@ -27,8 +27,10 @@ export const WEB_SEARCH_API = {
 };
 
 export const REAL_TIME_NEWS_API = {
-  HEADLINES: `https://newsdata.io/api/1/news?apikey=${newsdataAPIKey}`,
-  HEADERS: {},
+  HEADLINES: `https://cors-anywhere.herokuapp.com/https://newsdata.io/api/1/news?apikey=${newsdataAPIKey}`,
+  HEADERS: {
+    'Access-Control-Allow-Origin': '*',
+  },
 };
 
 export const LOCATION_API = {
