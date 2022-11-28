@@ -51,6 +51,7 @@ const ImagesBox = (): ReactElement => {
         {({ width, height }): ReactElement => {
           const columnCount = 4;
           const rowCount = Math.floor(value.length / columnCount);
+          // virtualization
           return (<Grid
             columnCount={columnCount}
             columnWidth={(): number => {

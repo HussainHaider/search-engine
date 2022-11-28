@@ -16,9 +16,9 @@ import { useAppDispatch } from '../../app/hooks';
 import WeatherWidget from './WeatherWidget/WeatherWidget';
 
 
-
 const Home = (): ReactElement => {
   const dispatch = useAppDispatch();
+  // the below code takes the permission from user
   const { coords, isGeolocationAvailable, isGeolocationEnabled } = useGeolocated({
     positionOptions: {
       enableHighAccuracy: true,
@@ -33,6 +33,7 @@ const Home = (): ReactElement => {
     }
   }, [isGeolocationEnabled, coords]);
 
+  // below useEffect runs if the user don't give permission of his/her location
   useEffect(() => {
     if (!isGeolocationAvailable || !isGeolocationEnabled)
       dispatch({ type: GET_LOCATION });
