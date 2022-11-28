@@ -71,6 +71,7 @@ export const webSlice = createSlice({
     },
     getNews: (state, action) => {
       state.newsData.totalCount = action.payload.totalCount;
+      state.newsData.isLoading = false;
       state.newsData.data = {
         ...state.newsData.data,
         [action.payload.pageNumber]: action.payload.value,
