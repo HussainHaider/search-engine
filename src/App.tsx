@@ -4,6 +4,7 @@ import React, { ReactElement } from 'react';
 import { useRoutes } from 'react-router-dom';
 // local imports
 import * as url from './constants/urlConstant';
+import ErrorBoundary from './modules/Common/ErrorBoundary/ErrorBoundary';
 import Home from './modules/Home/Home';
 import Search from './modules/Search/Search';
 
@@ -14,7 +15,9 @@ function App(): ReactElement | null {
     { path: url.SEARCH, element: <Search /> },
   ]);
 
-  return element;
+  return <ErrorBoundary>
+    {element}
+  </ErrorBoundary>;
 }
 
 export default App;
