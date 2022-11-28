@@ -71,7 +71,7 @@ export const homeSlice = createSlice({
         (newsItem: {
           title: string;
           link: string;
-          photo_url: string;
+          image_url: string;
           published_datetime_utc: string;
           source_url: string;
           source_logo_url: string;
@@ -79,7 +79,7 @@ export const homeSlice = createSlice({
           return {
             title: newsItem['title'],
             link: newsItem['link'],
-            photoUrl: newsItem['photo_url'],
+            photoUrl: newsItem['image_url'],
             publishedDatetime: newsItem['published_datetime_utc'],
             sourceUrl: newsItem['source_url'],
             sourceLogo: newsItem['source_logo_url'],
