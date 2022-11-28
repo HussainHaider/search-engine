@@ -7,3 +7,8 @@ export const getPaginationCount = (count: number): number => {
 export const openInNewTab = (url: string): void => {
   window.open(url, '_blank', 'noopener,noreferrer');
 };
+
+export const extractContent = (html: string): string | null => {
+  return new DOMParser().parseFromString(html, 'text/html')
+    .documentElement.textContent;
+};

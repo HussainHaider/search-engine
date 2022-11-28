@@ -30,7 +30,7 @@ const WebItem = (props: WebItemProps): ReactElement => {
       >
         {data.description}
       </StyledTypography>
-      <StyledTypography
+      <Description
         dangerouslySetInnerHTML={{
           __html: `${data.snippet}`
         }}
@@ -54,3 +54,8 @@ const StyledTypography = styled(Typography)(
   }),
 );
 
+const Description = styled(StyledTypography)(
+  () => ({
+    lineBreak: 'anywhere',
+  }),
+);

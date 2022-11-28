@@ -1,12 +1,12 @@
 import React, { ReactElement, useEffect } from 'react';
 //other third party imports
-import Pagination from '@mui/material/Pagination';
 import { useSearchParams } from 'react-router-dom';
 // local imports
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
 import { GET_NEWS } from '../../../../store/actionTypes/web';
-import { getPaginationCount } from '../../../../utilities/utils'
+import { getPaginationCount } from '../../../../utilities/utils';
 import NewsItem from './NewsItem/NewsItem';
+import { StyledPagination } from '../../../../styles/CommonStyles';
 import usePagination from '../../../../app/usePagination';
 
 
@@ -37,7 +37,7 @@ const NewsBox = (): ReactElement => {
           key={news.id} />
       })}
       {
-        PaginationCount && (<Pagination count={PaginationCount}
+        PaginationCount && (<StyledPagination count={PaginationCount}
           onChange={handleChange}
           page={page} />)
       }

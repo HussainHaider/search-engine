@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect } from 'react';
 //other third party imports
-import Pagination from '@mui/material/Pagination';
+import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 import { useSearchParams } from 'react-router-dom';
 // local imports
@@ -9,6 +9,7 @@ import { GET_WEB_SEARCH } from '../../../../store/actionTypes/web';
 import { getPaginationCount } from '../../../../utilities/utils';
 // import NoResult from '../../../Common/NoResult/NoResult';
 import RelatedSearchItem from './RelatedSearchItem/RelatedSearchItem';
+import { StyledPagination } from '../../../../styles/CommonStyles';
 import usePagination from '../../../../app/usePagination';
 import WebItem from './WebItem/WebItem';
 
@@ -46,12 +47,19 @@ const WebBox = (): ReactElement => {
       >
         Related Search
       </Typography>)}
-      {webData?.relatedSearch?.map((search): ReactElement => {
-        return <RelatedSearchItem data={search}
-          key={search} />
-      })}
+      <Grid container
+        spacing={2}>
+        {
+          webData?.relatedSearch?.map((search): ReactElement => {
+            return (<Grid key={search}
+              xs={4} >
+              <RelatedSearchItem data={search} />
+            </Grid>)
+          })
+        }
+      </Grid>
       {
-        PaginationCount && <Pagination count={PaginationCount}
+        PaginationCount && <StyledPagination count={PaginationCount}
           onChange={handleChange}
           page={page} />
       }
