@@ -27,8 +27,10 @@ export const WEB_SEARCH_API = {
 };
 
 export const REAL_TIME_NEWS_API = {
-  HEADLINES: `https://newsdata.io/api/1/news?apikey=${newsdataAPIKey}`,
-  HEADERS: {},
+  HEADLINES: `https://cors-anywhere.herokuapp.com/https://newsdata.io/api/1/news?apikey=${newsdataAPIKey}`,
+  HEADERS: {
+    'Access-Control-Allow-Origin': '*',
+  },
 };
 
 export const LOCATION_API = {
