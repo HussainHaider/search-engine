@@ -1,5 +1,6 @@
 import React, { ReactElement, useEffect } from 'react';
 //other third party imports
+import CircularProgress from '@mui/material/CircularProgress';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 // local imports
@@ -39,12 +40,16 @@ const WebBox = (): ReactElement => {
 
   return (
     <>
-      {/* if we have no data then show the no result component */}
-      {Object.keys(webData?.data).length === 0 && (<NoResult />)}
-      {webData?.data[page]?.map((news): ReactElement => {
-        return <WebItem data={news}
-          key={news.id} />
-      })}
+      {/* if data is loading then show the loading component. if not loading then check that wether we have the data or not.
+        if we don't have the data for even one page then show the noResult component otherwise render the webItem component
+      */}
+      {webData.isLoading ?
+        <CircularProgress /> :
+        Object.keys(webData?.data).length === 0 ? <NoResult /> :
+          (webData?.data[page]?.map((news): ReactElement => {
+            return <WebItem data={news}
+              key={news.id} />
+          }))}
       {webData?.relatedSearch.length && (<Typography
         variant="h5"
       >

@@ -15,10 +15,12 @@ export interface webState {
   value: number;
   imagesData: ImageSate;
   newsData: {
+    isLoading: boolean;
     totalCount: number;
     data: dataType<News>;
   };
   webData: {
+    isLoading: boolean;
     totalCount: number;
     relatedSearch: string[];
     data: dataType<Web>;
@@ -38,10 +40,12 @@ const initialState: webState = {
     value: [],
   },
   newsData: {
+    isLoading: false,
     totalCount: 0,
     data: {},
   },
   webData: {
+    isLoading: false,
     totalCount: 0,
     relatedSearch: [],
     data: {},
@@ -75,6 +79,7 @@ export const webSlice = createSlice({
     getWeb: (state, action) => {
       state.webData.totalCount = action.payload.totalCount;
       state.webData.relatedSearch = action.payload.relatedSearch;
+      state.webData.isLoading = false;
       state.webData.data = {
         ...state.webData.data,
         [action.payload.pageNumber]: action.payload.value,
@@ -90,6 +95,10 @@ export const webSlice = createSlice({
       state.autoComplete.isSearching = false;
       state.autoComplete.data = [];
     },
+    setLoadingState: (state, action) => {
+      const name: 'webData' | 'newsData' = action.payload.name;
+      state[`${name}`].isLoading = action.payload.loading;
+    },
   },
 });
 
@@ -99,6 +108,7 @@ export const {
   getWeb,
   setAutoComplete,
   clearAutoComplete,
+  setLoadingState,
 } = webSlice.actions;
 
 export default webSlice.reducer;

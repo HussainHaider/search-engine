@@ -14,6 +14,7 @@ import {
   getNews,
   getWeb,
   setAutoComplete,
+  setLoadingState,
 } from '../reducers/webSlice';
 import {
   ImageResponse,
@@ -93,6 +94,12 @@ export function* getNewsSaga(data: dataType): Generator<
   NewsResponse
 > {
   try {
+    yield put(
+      setLoadingState({
+        name: 'newsData',
+        loading: true,
+      }),
+    );
     const response: NewsResponse = yield call(
       api.getNews,
       data.payload.searchTerm,
@@ -123,6 +130,12 @@ export function* getWebSaga(data: dataType): Generator<
   WebResponse
 > {
   try {
+    yield put(
+      setLoadingState({
+        name: 'webData',
+        loading: true,
+      }),
+    );
     const response: WebResponse = yield call(
       api.getWebSearch,
       data.payload.searchTerm,
