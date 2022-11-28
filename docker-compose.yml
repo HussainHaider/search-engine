@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  search-engine:
+    container_name: search-engine
+    build: ./search-engine
+    ports:
+      - "3000:3000"
+    environment:
+      - BASE_URL=http://localhost:3000
