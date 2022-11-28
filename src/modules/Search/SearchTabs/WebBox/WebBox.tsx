@@ -2,7 +2,6 @@ import React, { ReactElement, useEffect } from 'react';
 //other third party imports
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
-import { useSearchParams } from 'react-router-dom';
 // local imports
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
 import { GET_WEB_SEARCH } from '../../../../store/actionTypes/web';
@@ -11,27 +10,30 @@ import { getPaginationCount } from '../../../../utilities/utils';
 import RelatedSearchItem from './RelatedSearchItem/RelatedSearchItem';
 import { StyledPagination } from '../../../../styles/CommonStyles';
 import usePagination from '../../../../app/usePagination';
+import useParams from '../../../../app/useParams';
 import WebItem from './WebItem/WebItem';
 
 
 const WebBox = (): ReactElement => {
   // redux
-  const [searchParams] = useSearchParams();
   const dispatch = useAppDispatch();
   const webData = useAppSelector((state) => state.web.webData);
+  //hooks
+  const [searchTerm] = useParams(GET_WEB_SEARCH);
   // state
   const [page, handleChange] = usePagination();
 
   useEffect(() => {
     // if page is positive number and we don't have the data then fetch it otherwise no.
-    if (page && !webData?.data[page]) {
+    // page 1 data is managed in useParams hooks
+    if (page && page!==1 && !webData?.data[page]) {
       dispatch({
         type: GET_WEB_SEARCH, payload: {
-          searchTerm: searchParams.get('q'), pageNumber: page
+          searchTerm: searchTerm, pageNumber: page
         }
       });
     }
-  }, [page])
+  }, [page]);
 
   const PaginationCount = getPaginationCount(webData.totalCount);
 

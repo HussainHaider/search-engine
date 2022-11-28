@@ -1,16 +1,16 @@
-import React, { ReactElement, useEffect, SyntheticEvent } from 'react';
+import React, { ReactElement, SyntheticEvent } from 'react';
 //other third party imports
 import AutoSizer from 'react-virtualized-auto-sizer';
 import Box from '@mui/material/Box';
 import { VariableSizeGrid as Grid } from 'react-window';
 // import InfiniteLoader from 'react-window-infinite-loader';
 import { styled } from '@mui/material/styles';
-import { useSearchParams } from 'react-router-dom';
 // local imports
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
 import { GET_IMAGES } from '../../../../store/actionTypes/web';
 import { Image } from '../../../../interfaces/web';
 import ImageItem from './ImageItem/ImageItem';
+import useParams from '../../../../app/useParams';
 
 
 const Cell = ({ columnIndex, rowIndex, style, data }: { columnIndex: number, rowIndex: number, style: object, data: Array<Image> }): ReactElement => {
@@ -22,16 +22,17 @@ const Cell = ({ columnIndex, rowIndex, style, data }: { columnIndex: number, row
 
 const ImagesBox = (): ReactElement => {
   // redux
-  const [searchParams] = useSearchParams();
   const dispatch = useAppDispatch();
   const imagesData = useAppSelector((state) => state.web.imagesData);
+  //hooks
+  const [searchTerm] = useParams(GET_IMAGES);
 
   const { value, pageNumber } = imagesData;
 
   const fetchData = (pageNumber: number): void => {
     dispatch({
       type: GET_IMAGES, payload: {
-        searchTerm: searchParams, pageNumber
+        searchTerm: searchTerm, pageNumber
       }
     });
   }
@@ -41,13 +42,15 @@ const ImagesBox = (): ReactElement => {
     const target = e.target as HTMLInputElement;
     const bottom = target?.scrollHeight - target?.scrollTop === target?.clientHeight;
     console.log('bottom: ' + bottom);
-    if (bottom)
+    if (bottom) {
       console.log('bottom hit!!');
+      fetchData(pageNumber);
+    }
   }
 
-  useEffect(() => {
-    fetchData(pageNumber);
-  }, []);
+  // useEffect(() => {
+  //   fetchData(pageNumber);
+  // }, []);
 
   return (
     <MasonryWrapper onScroll={handleScroll}>

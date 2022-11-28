@@ -1,6 +1,5 @@
 import React, { ReactElement, useEffect } from 'react';
 //other third party imports
-import { useSearchParams } from 'react-router-dom';
 // local imports
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
 import { GET_NEWS } from '../../../../store/actionTypes/web';
@@ -8,22 +7,25 @@ import { getPaginationCount } from '../../../../utilities/utils';
 import NewsItem from './NewsItem/NewsItem';
 import { StyledPagination } from '../../../../styles/CommonStyles';
 import usePagination from '../../../../app/usePagination';
+import useParams from '../../../../app/useParams';
 
 
 const NewsBox = (): ReactElement => {
   // redux
-  const [searchParams] = useSearchParams();
   const dispatch = useAppDispatch();
   const newsData = useAppSelector((state) => state.web.newsData);
+  //hooks
+  const [searchTerm] = useParams(GET_NEWS);
   // state
   const [page, handleChange] = usePagination();
 
   useEffect(() => {
     // if page is positive number and we don't have the data then fetch it otherwise no.
-    if (page && !newsData?.data[page]) {
+    // page 1 data is managed in useParams hooks
+    if (page && page !== 1 && !newsData?.data[page]) {
       dispatch({
         type: GET_NEWS, payload: {
-          searchTerm: searchParams.get('q'), pageNumber: page
+          searchTerm: searchTerm, pageNumber: page
         }
       });
     }
