@@ -15,6 +15,7 @@ import {
   WeatherResponse,
   HeadlinesResponse,
 } from '../../interfaces/home';
+import { Action } from '../../interfaces/common';
 
 /**
  * @generator
@@ -44,11 +45,7 @@ interface dataType {
  */
 export function* getWeatherSaga(data: dataType): Generator<
   // step types
-  | CallEffect<WeatherResponse>
-  | PutEffect<{
-      payload: any;
-      type: 'home/getWeather';
-    }>,
+  CallEffect<WeatherResponse> | PutEffect<Action>,
   // return type
   void, // intermediate argument
   WeatherResponse
@@ -72,51 +69,17 @@ export function* getWeatherSaga(data: dataType): Generator<
  */
 export function* getHeadlinesSaga(data: dataType): Generator<
   // step types
-  | CallEffect<HeadlinesResponse>
-  | PutEffect<{
-      payload: any;
-      type: 'home/getHeadlines';
-    }>,
+  CallEffect<HeadlinesResponse> | PutEffect<Action>,
   // return type
   void, // intermediate argument
   HeadlinesResponse
 > {
   try {
-    const resp = {
-      data: {
-        status: 'OK',
-        request_id: '3643eee6-9965-4f68-948e-09a348fd1c33',
-        data: [
-          {
-            title:
-              'It’s like homecoming for me, says Kesha Ram on Lahore visit',
-            link: 'https://www.pakistantoday.com.pk/2022/11/27/its-like-homecoming-for-me-says-kesha-ram-on-lahore-visit/',
-            photo_url:
-              'https://www.pakistantoday.com.pk/wp-content/uploads/2022/11/Ganga-Rams-granddaughter.jpg',
-            published_datetime_utc: '2022-11-27T14:13:48.000Z',
-            source_url: 'https://www.pakistantoday.com.pk',
-            source_logo_url: null,
-            source_favicon_url:
-              'https://encrypted-tbn3.gstatic.com/faviconV2?url=https://www.pakistantoday.com.pk&client=NEWS_360&size=96&type=FAVICON&fallback_opts=TYPE,SIZE,URL',
-          },
-          {
-            title:
-              'Radiotherapy unit to be set up in Children’s Hospital',
-            link: 'https://www.nation.com.pk/27-Nov-2022/radiotherapy-unit-to-be-set-up-in-children-s-hospital',
-            photo_url:
-              'https://www.nation.com.pk/assets/thenation/images/no-image-large.jpg',
-            published_datetime_utc: '2022-11-27T04:20:01.000Z',
-            source_url: 'https://www.nation.com.pk',
-            source_logo_url:
-              'https://lh3.googleusercontent.com/fD1k3PZ8GP-LBie9XAPX13lS8FtU-LDTCN_ijqi3oquM2thXhzyyTyfOBKlzhaACCnGnAYhSPm8',
-            source_favicon_url:
-              'https://encrypted-tbn3.gstatic.com/faviconV2?url=https://www.nation.com.pk&client=NEWS_360&size=96&type=FAVICON&fallback_opts=TYPE,SIZE,URL',
-          },
-        ],
-      },
-    };
-    yield put(getHeadlines(resp.data));
-    yield call(api.getHomeNews, data.payload.searchTerm);
+    const response: HeadlinesResponse = yield call(
+      api.getHomeNews,
+      data.payload.searchTerm,
+    );
+    yield put(getHeadlines(response.data));
   } catch (error) {
     console.log(error);
   }

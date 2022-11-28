@@ -21,7 +21,7 @@ import {
   WebResponse,
   AutoCompleteResponse,
 } from '../../interfaces/web';
-// import { Action } from '../../interfaces/common';
+import { Action } from '../../interfaces/common';
 
 /**
  * @generator
@@ -57,11 +57,7 @@ interface dataType {
  */
 export function* getImagesSaga(data: dataType): Generator<
   // step types
-  | CallEffect<ImageResponse>
-  | PutEffect<{
-      payload: any;
-      type: 'web/getImages';
-    }>,
+  CallEffect<ImageResponse> | PutEffect<Action>,
   // return type
   void, // intermediate argument
   ImageResponse
@@ -86,11 +82,7 @@ export function* getImagesSaga(data: dataType): Generator<
  */
 export function* getNewsSaga(data: dataType): Generator<
   // step types
-  | CallEffect<NewsResponse>
-  | PutEffect<{
-      payload: any;
-      type: 'web/getNews';
-    }>,
+  CallEffect<NewsResponse> | PutEffect<Action>,
   // return type
   void, // intermediate argument
   NewsResponse
@@ -120,11 +112,7 @@ export function* getNewsSaga(data: dataType): Generator<
  */
 export function* getWebSaga(data: dataType): Generator<
   // step types
-  | CallEffect<WebResponse>
-  | PutEffect<{
-      payload: any;
-      type: 'web/getWeb';
-    }>,
+  CallEffect<WebResponse> | PutEffect<Action>,
   // return type
   void, // intermediate argument
   WebResponse
@@ -149,11 +137,7 @@ export function* getWebSaga(data: dataType): Generator<
  */
 export function* getSearchSuggestionSaga(data: dataType): Generator<
   // step types
-  | CallEffect<AutoCompleteResponse>
-  | PutEffect<{
-      payload: any;
-      type: 'web/setAutoComplete';
-    }>,
+  CallEffect<AutoCompleteResponse> | PutEffect<Action>,
   // return type
   void, // intermediate argument
   AutoCompleteResponse
