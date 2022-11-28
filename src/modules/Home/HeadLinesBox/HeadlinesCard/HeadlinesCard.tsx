@@ -29,7 +29,7 @@ const HeadlinesCard = (props: HeadlinesCardProps): ReactElement => {
         alt="green iguana"
         component="img"
         height="140"
-        image={photoUrl}
+        image={photoUrl || 'https://images.pond5.com/breaking-news-background-red-colour-footage-158889432_prevstill.jpeg'} // added alternative url
       />
       <CardContent>
         <Typography component="div"
