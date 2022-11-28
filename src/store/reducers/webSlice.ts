@@ -83,7 +83,10 @@ export const webSlice = createSlice({
     getWeb: (state, action) => {
       state.webData.totalCount = action.payload.totalCount;
       state.webData.relatedSearch = action.payload.relatedSearch;
-      state.webData.data = action.payload.value;
+      state.webData.data = {
+        ...state.webData.data,
+        [action.payload.pageNumber]: action.payload.value,
+      };
     },
     setAutoComplete: (state, action) => {
       state.autoComplete.isSearching = true;

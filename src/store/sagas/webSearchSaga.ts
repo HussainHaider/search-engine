@@ -128,7 +128,12 @@ export function* getWebSaga(data: dataType): Generator<
       data.payload.searchTerm,
       data.payload.pageNumber,
     );
-    yield put(getWeb(response.data));
+    yield put(
+      getWeb({
+        ...response.data,
+        pageNumber: data.payload.pageNumber,
+      }),
+    );
   } catch (error) {
     console.log(error);
   }

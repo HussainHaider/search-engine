@@ -6,10 +6,12 @@ import { useSearchParams } from 'react-router-dom';
 // local imports
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
 import { GET_WEB_SEARCH } from '../../../../store/actionTypes/web';
-import { getPaginationCount } from '../../../../utilities/utils'
+import { getPaginationCount } from '../../../../utilities/utils';
+// import NoResult from '../../../Common/NoResult/NoResult';
 import RelatedSearchItem from './RelatedSearchItem/RelatedSearchItem';
 import usePagination from '../../../../app/usePagination';
 import WebItem from './WebItem/WebItem';
+
 
 
 const WebBox = (): ReactElement => {
@@ -32,8 +34,10 @@ const WebBox = (): ReactElement => {
   }, [page])
 
   const PaginationCount = getPaginationCount(webData.totalCount);
+
   return (
     <>
+      {/* <NoResult /> */}
       {webData?.data[page]?.map((news): ReactElement => {
         return <WebItem data={news}
           key={news.id} />
