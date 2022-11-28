@@ -1,3 +1,4 @@
+// all MUI typography variants are customized here
 const typography = {
   fontFamily: 'Montserrat',
   htmlFontSize: 10,

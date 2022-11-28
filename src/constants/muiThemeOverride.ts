@@ -19,6 +19,14 @@ import {
 import { white, black } from './colors';
 import typography from './typography';
 
+// theme of the whole application will be maanaged from this file
+/**
+ * responsiveFontSizes Generate responsive typography settings based on the options received.
+ * @param  {object} theme  The theme object to enhance.
+ * @param  {options} object
+ * @return {object} The new theme with a responsive typography.
+ */
+//
 const theme = responsiveFontSizes(
   createTheme({
     typography: typography,
@@ -26,12 +34,13 @@ const theme = responsiveFontSizes(
       MuiCssBaseline: {
         styleOverrides: {
           'html': {
-            fontSize: '62.5%',
+            fontSize: '62.5%', // 10px hence it is easy to use rem without thinking to much otherwise it will be 16px
           },
           'body': {
             backgroundColor: white,
             fontSize: '0 !important',
           },
+          // changing the scrollbar styles
           '::-webkit-scrollbar': {
             width: '13px',
           },
