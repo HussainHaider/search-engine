@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
 import { GET_WEB_SEARCH } from '../../../../store/actionTypes/web';
 import { getPaginationCount } from '../../../../utilities/utils';
-// import NoResult from '../../../Common/NoResult/NoResult';
+import NoResult from '../../../Common/NoResult/NoResult';
 import RelatedSearchItem from './RelatedSearchItem/RelatedSearchItem';
 import { StyledPagination } from '../../../../styles/CommonStyles';
 import usePagination from '../../../../app/usePagination';
@@ -26,7 +26,7 @@ const WebBox = (): ReactElement => {
   useEffect(() => {
     // if page is positive number and we don't have the data then fetch it otherwise no.
     // page 1 data is managed in useParams hooks
-    if (page && page!==1 && !webData?.data[page]) {
+    if (page && page !== 1 && !webData?.data[page]) {
       dispatch({
         type: GET_WEB_SEARCH, payload: {
           searchTerm: searchTerm, pageNumber: page
@@ -39,7 +39,8 @@ const WebBox = (): ReactElement => {
 
   return (
     <>
-      {/* <NoResult /> */}
+      {/* if we have no data then show the no result component */}
+      {Object.keys(webData?.data).length === 0 && (<NoResult />)}
       {webData?.data[page]?.map((news): ReactElement => {
         return <WebItem data={news}
           key={news.id} />
