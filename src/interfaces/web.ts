@@ -49,10 +49,9 @@ export interface News {
   isSafe: boolean;
   datePublished: string;
   provider: {
-    imageWebSearchUrl: string;
-    webpageUrl: string;
-    image: Image;
+    name: string;
   };
+  image: Image;
 }
 
 export interface WebResponse extends ResponseGenerator {

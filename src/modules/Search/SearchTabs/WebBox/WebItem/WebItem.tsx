@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 // local imports
+import { openInNewTab } from '../../../../../utilities/utils';
 import { Web } from '../../../../../interfaces/web';
 
 type WebItemProps = {
@@ -12,8 +13,13 @@ type WebItemProps = {
 
 const WebItem = (props: WebItemProps): ReactElement => {
   const { data } = props;
+
+  const linkHandler = (): void => {
+    openInNewTab(data.url);
+  };
+
   return (
-    <ItemWrappar>
+    <ItemWrappar onClick={linkHandler}>
       <StyledTypography
         variant="body2"
       >

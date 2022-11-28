@@ -9,6 +9,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 //local imports
 import { HeadlinesData } from '../../../../interfaces/home';
+import { openInNewTab } from '../../../../utilities/utils';
 
 type HeadlinesCardProps = {
   data: HeadlinesData,
@@ -16,7 +17,12 @@ type HeadlinesCardProps = {
 
 const HeadlinesCard = (props: HeadlinesCardProps): ReactElement => {
   const { data } = props;
-  const { title, link, photoUrl, publishedDatetime, sourceUrl, sourceLogo } = data;
+  const { title, link, photoUrl, publishedDatetime } = data;
+
+  const learnMoreHandler = (): void => {
+    openInNewTab(link);
+  };
+
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
@@ -33,11 +39,12 @@ const HeadlinesCard = (props: HeadlinesCardProps): ReactElement => {
         </Typography>
         <Typography color="text.secondary"
           variant="body2">
-          {link}, {publishedDatetime}, {sourceUrl}, {sourceLogo}
+          {publishedDatetime.split('T')[0]}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Learn More</Button>
+        <Button onClick={learnMoreHandler}
+          size="small">Learn More</Button>
       </CardActions>
     </Card>
   );

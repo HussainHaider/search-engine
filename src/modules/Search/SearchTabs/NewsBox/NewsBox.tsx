@@ -36,9 +36,11 @@ const NewsBox = (): ReactElement => {
         return <NewsItem data={news}
           key={news.id} />
       })}
-      <Pagination count={PaginationCount}
-        onChange={handleChange}
-        page={page} />
+      {
+        PaginationCount && (<Pagination count={PaginationCount}
+          onChange={handleChange}
+          page={page} />)
+      }
     </>
   )
 }

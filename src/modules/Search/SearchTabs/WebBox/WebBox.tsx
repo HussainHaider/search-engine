@@ -38,18 +38,20 @@ const WebBox = (): ReactElement => {
         return <WebItem data={news}
           key={news.id} />
       })}
-      <Typography
+      {webData?.relatedSearch.length && (<Typography
         variant="h5"
       >
         Related Search
-      </Typography>
+      </Typography>)}
       {webData?.relatedSearch?.map((search): ReactElement => {
         return <RelatedSearchItem data={search}
           key={search} />
       })}
-      <Pagination count={PaginationCount}
-        onChange={handleChange}
-        page={page} />
+      {
+        PaginationCount && <Pagination count={PaginationCount}
+          onChange={handleChange}
+          page={page} />
+      }
     </>
   )
 }
