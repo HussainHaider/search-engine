@@ -39,7 +39,7 @@ export function getHomeNews(
   return instance.get(REAL_TIME_NEWS_API.HEADLINES, {
     params: {
       country: iso.whereCountry(country)?.alpha2?.toLowerCase(),
-      lang: 'en',
+      language: 'en',
     },
     headers: REAL_TIME_NEWS_API.HEADERS,
   });
