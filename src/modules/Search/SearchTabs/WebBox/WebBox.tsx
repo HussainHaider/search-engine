@@ -13,7 +13,6 @@ import usePagination from '../../../../app/usePagination';
 import WebItem from './WebItem/WebItem';
 
 
-
 const WebBox = (): ReactElement => {
   // redux
   const [searchParams] = useSearchParams();

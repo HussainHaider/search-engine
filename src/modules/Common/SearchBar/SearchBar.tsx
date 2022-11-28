@@ -7,11 +7,12 @@ import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
-
 // local imports
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { clearAutoComplete } from '../../../store/reducers/webSlice';
+import { GET_SEARCH_SUGGESTIONS } from '../../../store/actionTypes/web';
 import { SEARCH } from '../../../constants/urlConstant';
+
 
 type SearchBarProps = {
   color: 'primary' | 'secondary',
@@ -41,6 +42,9 @@ const SearchBar = (props: SearchBarProps): ReactElement => {
     onInputChange={(event: SyntheticEvent, value: string, reason: string): void => {
       if (reason === 'clear' || value === '')
         dispatch(clearAutoComplete());
+      else {
+        dispatch({ type: GET_SEARCH_SUGGESTIONS, payload: { searchTerm: value } });
+      }
       setInputValue(value);
     }}
     options={suggestions}

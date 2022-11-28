@@ -48,18 +48,7 @@ const initialState: webState = {
   },
   autoComplete: {
     isSearching: false,
-    data: [
-      'download',
-      'dog',
-      'download free',
-      'download mp3',
-      'domain',
-      'donald trump',
-      'doctors',
-      'download pdf',
-      'documentation',
-      'double',
-    ],
+    data: [],
   },
 };
 
