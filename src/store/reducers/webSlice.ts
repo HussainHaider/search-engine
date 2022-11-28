@@ -6,9 +6,14 @@ interface dataType<T> {
   [key: number]: Array<T>;
 }
 
+interface ImageSate extends ImagesData {
+  isNextPageLoading: boolean;
+  pageNumber: number;
+}
+
 export interface webState {
   value: number;
-  imagesData: ImagesData;
+  imagesData: ImageSate;
   newsData: {
     totalCount: number;
     data: dataType<News>;
@@ -27,6 +32,8 @@ export interface webState {
 const initialState: webState = {
   value: 0,
   imagesData: {
+    isNextPageLoading: false,
+    pageNumber: 1,
     totalCount: 0,
     value: [],
   },
@@ -64,6 +71,7 @@ export const webSlice = createSlice({
     getImages: (state, action) => {
       state.imagesData.totalCount = action.payload.totalCount;
       state.imagesData.value = action.payload.value;
+      state.imagesData.pageNumber = action.payload.pageNumber;
     },
     getNews: (state, action) => {
       state.newsData.totalCount = action.payload.totalCount;

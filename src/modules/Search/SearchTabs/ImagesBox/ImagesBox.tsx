@@ -1,8 +1,9 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement, useEffect, SyntheticEvent } from 'react';
 //other third party imports
 import AutoSizer from 'react-virtualized-auto-sizer';
 import Box from '@mui/material/Box';
 import { VariableSizeGrid as Grid } from 'react-window';
+// import InfiniteLoader from 'react-window-infinite-loader';
 import { styled } from '@mui/material/styles';
 import { useSearchParams } from 'react-router-dom';
 // local imports
@@ -25,18 +26,31 @@ const ImagesBox = (): ReactElement => {
   const dispatch = useAppDispatch();
   const imagesData = useAppSelector((state) => state.web.imagesData);
 
-  const { value } = imagesData;
+  const { value, pageNumber } = imagesData;
 
-  useEffect(() => {
+  const fetchData = (pageNumber: number): void => {
     dispatch({
       type: GET_IMAGES, payload: {
-        searchTerm: searchParams, pageNumber: 1
+        searchTerm: searchParams, pageNumber
       }
     });
+  }
+
+  const handleScroll = (e: SyntheticEvent): void => {
+    console.log('scrolling');
+    const target = e.target as HTMLInputElement;
+    const bottom = target?.scrollHeight - target?.scrollTop === target?.clientHeight;
+    console.log('bottom: ' + bottom);
+    if (bottom)
+      console.log('bottom hit!!');
+  }
+
+  useEffect(() => {
+    fetchData(pageNumber);
   }, []);
 
   return (
-    <MasonryWrapper>
+    <MasonryWrapper onScroll={handleScroll}>
       <AutoSizer>
         {({ width, height }): ReactElement => {
           const columnCount = 4;
@@ -66,7 +80,7 @@ export default ImagesBox;
 const MasonryWrapper = styled(Box)(
   () => ({
     width: '100%',
-    minHeight: '70vh'
+    minHeight: '500vh'
   }),
 );
 

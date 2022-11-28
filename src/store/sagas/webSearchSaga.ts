@@ -68,7 +68,12 @@ export function* getImagesSaga(data: dataType): Generator<
       data.payload.searchTerm,
       data.payload.pageNumber,
     );
-    yield put(getImages(response.data));
+    yield put(
+      getImages({
+        ...response.data,
+        pageNumber: data.payload.pageNumber,
+      }),
+    );
   } catch (error) {
     console.log(error);
   }
