@@ -20,6 +20,8 @@ const ImageItem = (props: ImageItemProps): ReactElement => {
       // srcSet={`${data.url}?w=248&fit=crop&auto=format&dpr=2 2x`}
       />
       <ImageListItemBar position="below"
+        title={data.webpageUrl} />
+      <ImageListItemBar position="below"
         title={data.title} />
     </ImageListItem>
   )
