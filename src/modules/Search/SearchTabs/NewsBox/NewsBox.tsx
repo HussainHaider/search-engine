@@ -19,7 +19,8 @@ const NewsBox = (): ReactElement => {
   const [page, handleChange] = usePagination();
 
   useEffect(() => {
-    if (page) {
+    // if page is positive number and we don't have the data then fetch it otherwise no.
+    if (page && !newsData?.data[page]) {
       dispatch({
         type: GET_NEWS, payload: {
           searchTerm: searchParams.get('q'), pageNumber: page

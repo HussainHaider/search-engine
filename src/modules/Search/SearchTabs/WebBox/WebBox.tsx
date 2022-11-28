@@ -21,7 +21,8 @@ const WebBox = (): ReactElement => {
   const [page, handleChange] = usePagination();
 
   useEffect(() => {
-    if (page) {
+    // if page is positive number and we don't have the data then fetch it otherwise no.
+    if (page && !webData?.data[page]) {
       dispatch({
         type: GET_WEB_SEARCH, payload: {
           searchTerm: searchParams.get('q'), pageNumber: page

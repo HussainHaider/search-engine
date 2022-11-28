@@ -7,8 +7,8 @@ import LanguageIcon from '@mui/icons-material/Language';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
-import Typography from '@mui/material/Typography';
 //local imports
+import ImagesBox from './ImagesBox/ImagesBox';
 import NewsBox from './NewsBox/NewsBox';
 import WebBox from './WebBox/WebBox';
 
@@ -86,7 +86,7 @@ const SearchTabs = (): ReactElement => {
       </TabPanel>
       <TabPanel index={1}
         value={value}>
-        <Typography>Add Masonry from react virtualized</Typography>
+        <ImagesBox />
       </TabPanel>
       <TabPanel index={2}
         value={value}>
