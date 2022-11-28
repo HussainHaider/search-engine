@@ -1,6 +1,6 @@
 //React imports
-import React, { ReactElement, SyntheticEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { ReactElement, SyntheticEvent, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 //other third party imports
 import Autocomplete from '@mui/material/Autocomplete';
 import match from 'autosuggest-highlight/match';
@@ -24,10 +24,15 @@ const SearchBar = (props: SearchBarProps): ReactElement => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const suggestions = useAppSelector((state) => state.web.autoComplete.data);
+  const [searchParams] = useSearchParams();
+  //states
+  const [inputValue, setInputValue] = useState(searchParams.get('q') || '');
+
   return (<Autocomplete
     freeSolo
     fullWidth
     id="search-box"
+    inputValue={inputValue}
     onChange={(event: SyntheticEvent, value: string | null): void => {
       if (value) {
         navigate(`${SEARCH}?q=${value}`);
@@ -36,6 +41,7 @@ const SearchBar = (props: SearchBarProps): ReactElement => {
     onInputChange={(event: SyntheticEvent, value: string, reason: string): void => {
       if (reason === 'clear' || value === '')
         dispatch(clearAutoComplete());
+      setInputValue(value);
     }}
     options={suggestions}
     renderInput={(params): ReactElement => <StyledTextField {...params}
@@ -43,7 +49,7 @@ const SearchBar = (props: SearchBarProps): ReactElement => {
       focused
       label="search the web"
     />}
-    renderOption={(props, option, { inputValue }) => {
+    renderOption={(props, option, { inputValue }): ReactElement => {
       const matches = match(option, inputValue, { insideWords: true });
       const parts = parse(option, matches);
 
