@@ -67,7 +67,7 @@ export const homeSlice = createSlice({
       state.location.lon = action.payload?.longitude;
     },
     getHeadlines: (state, action) => {
-      state.news = action.payload.data.map(
+      state.news = action.payload.results.map(
         (newsItem: {
           title: string;
           link: string;

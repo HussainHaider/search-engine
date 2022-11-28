@@ -39,7 +39,7 @@ const HeadlinesCard = (props: HeadlinesCardProps): ReactElement => {
         </Typography>
         <Typography color="text.secondary"
           variant="body2">
-          {publishedDatetime.split('T')[0]}
+          {publishedDatetime?.split('T')[0]}
         </Typography>
       </CardContent>
       <CardActions>
